@@ -32,7 +32,7 @@ func main() {
 	app := &App{Ctx: context.Background()}
 	
 	// Initiera databas
-	dbHost := getEnv("DB_HOST", "localhost")
+	dbHost := getEnv("DB_HOST", "postgresql")
 	dbPort := getEnv("DB_PORT", "5432")
 	dbUser := getEnv("DB_USER", "guestbook")
 	dbPass := getEnv("DB_PASSWORD", "password")
@@ -68,10 +68,10 @@ func main() {
 	app.initDB()
 	
 	// Initiera Redis
-	redisHost := getEnv("REDIS_HOST", "localhost")
+	redisHost := getEnv("REDIS_HOST", "redis")
 	redisPort := getEnv("REDIS_PORT", "6379")
-	redisPass := getEnv("REDIS_PASSWORD", "")
-	
+	redisPass := getEnv("REDIS_PASSWORD", "redispassword")
+
 	app.Redis = redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%s", redisHost, redisPort),
 		Password: redisPass,
