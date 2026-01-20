@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_PREFIX: ghcr.io/${{ github.repository }}
+  IMAGE_PREFIX: ghcr.io/narah111/ocp-guestbook/
 
 jobs:
 
@@ -34,31 +34,11 @@ jobs:
       - name: Build frontend image
         run: |
           cd frontend
-          podman build -t ${{ env.IMAGE_PREFIX }}/guestbook-frontend:latest -f Containerfile .
-          podman tag ${{ env.IMAGE_PREFIX }}/guestbook-frontend:latest ${{ env.IMAGE_PREFIX }}/guestbook-frontend:${{ github.sha }}
+          podman build -t ${{ env.IMAGE_PREFIX }}frontend:latest -f Containerfile .
+          podman tag ${{ env.IMAGE_PREFIX }}frontend:latest ${{ env.IMAGE_PREFIX }}frontend:${{ github.sha }}
 
       - name: Push frontend image
         if: github.event_name != 'pull_request'
         run: |
-          podman push ${{ env.IMAGE_PREFIX }}/guestbook-frontend:latest
-          podman push ${{ env.IMAGE_PREFIX }}/guestbook-frontend:${{ github.sha }}
-
-  summary:
-    runs-on: ubuntu-latest
-    needs: [build-frontend]
-    if: always()
-
-    steps:
-      - name: Build Summary
-        run: |
-          echo "## 🐳 Build Results" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- Frontend: ${{ needs.build-frontend.result }}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          if [ "${{ github.event_name }}" != "pull_request" ]; then
-            echo "### 📦 Published Images" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            echo "podman pull ${{ env.IMAGE_PREFIX }}/guestbook-frontend:latest" >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-          fi
+          podman push ${{ env.IMAGE_PREFIX }}frontend:latest
+          podman push ${{ env.IMAGE_PREFIX }}frontend:${{ github.sha }}
