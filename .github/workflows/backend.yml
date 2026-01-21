@@ -38,6 +38,7 @@ jobs:
             context: ./backend
             file: ./backend/Containerfile
             push: ${{ github.event_name != 'pull_request' }}
+            platform: linux/arm64,linux/amd64
             tags: |
                 ghcr.io/narah111/ocp-guestbook/backend:latest
                 ghcr.io/narah111/ocp-guestbook/backend:${{ github.sha }}
