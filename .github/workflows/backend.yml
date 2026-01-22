@@ -2,7 +2,7 @@ name: Build backend
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, dev]
   pull_request:
     branches: [main]
 
@@ -28,9 +28,9 @@ jobs:
           if [ "${{ github.event_name }}" == "pull_request" ] && [ "${{ github.base_ref }}" == "main" ]; then
             echo "platforms=linux/amd64" >> $GITHUB_OUTPUT
             echo "Building for amd64 (PR to main)"
-          elif [ "${{ github.ref }}" == "refs/heads/develop" ]; then
+          elif [ "${{ github.ref }}" == "refs/heads/dev" ]; then
             echo "platforms=linux/arm64" >> $GITHUB_OUTPUT
-            echo "Building for arm64 (develop branch)"
+            echo "Building for arm64 (dev branch)"
           else
             echo "platforms=linux/amd64" >> $GITHUB_OUTPUT
             echo "Building for amd64 (default)"
