@@ -1,4 +1,4 @@
-name: Build with Podman
+name: Build Frontend
 
 on:
   # push:
@@ -6,7 +6,7 @@ on:
   # pull_request:
   #   branches:
   #     - main
-    workflow_dispatch:
+  workflow_dispatch:
 env:
   REGISTRY: ghcr.io
   IMAGE_PREFIX: ghcr.io/narah111/ocp-guestbook/
