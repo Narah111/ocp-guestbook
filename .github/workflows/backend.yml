@@ -89,9 +89,9 @@ jobs:
             git clone https://${{ secrets.INFRA_OPENSHIFT }}@github.com/${{ env.INFRA_REPO }}.git config-repo
             cd config-repo
 
-            sed -i "s|image: .*backend:.*|image: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.image-tag.outputs.tag }}|" k8s/deployment.yaml
-            sed -i "s|value: \".*\"|value: \"${{ steps.image-tag.outputs.tag }}\"|" k8s/deployment.yaml
+            sed -i "s|image: .*backend:.*|image: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.image-tag.outputs.tag }}|" k8s/backend.yaml
+            sed -i "s|value: \".*\"|value: \"${{ steps.image-tag.outputs.tag }}\"|" k8s/backend.yaml
 
-            git add k8s/deployment.yaml
+            git add k8s/backend.yaml
             git commit -m "Update image to ${{ steps.image-tag.outputs.tag }}"
             git push origin main
