@@ -78,7 +78,7 @@ jobs:
             
             tags: |
                 ghcr.io/narah111/ocp-guestbook/backend:latest
-                ghcr.io/narah111/ocp-guestbook/backend:${{ github.sha }}
+                ghcr.io/narah111/ocp-guestbook/backend:${{ steps.image-tag.outputs.tag }}
 
       - name: Update Kubernetes manifests
         if: github.event_name == 'pull_request'

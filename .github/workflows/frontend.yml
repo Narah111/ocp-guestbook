@@ -50,14 +50,14 @@ jobs:
         run: |
           cd frontend
           podman build -t ${{ env.IMAGE_PREFIX }}frontend -f Containerfile .
-          podman tag ${{ env.IMAGE_PREFIX }}frontend ${{ env.IMAGE_PREFIX }}frontend:${{ github.sha }}
+          podman tag ${{ env.IMAGE_PREFIX }}frontend ${{ env.IMAGE_PREFIX }}frontend:${{ steps.image-tag.outputs.tag }}
 
       - name: Push frontend image
         if: github.event_name != 'pull_request'
         run: |
           podman push ${{ env.IMAGE_PREFIX }}frontend:latest
-          podman push ${{ env.IMAGE_PREFIX }}frontend:${{ github.sha }}
-      
+          podman push ${{ env.IMAGE_PREFIX }}frontend:${{ steps.image-tag.outputs.tag }}
+
       - name: Update Kubernetes manifests
         run: |
           git config --global user.name "GitHub Actions"
