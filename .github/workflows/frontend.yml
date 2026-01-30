@@ -66,9 +66,9 @@ jobs:
           git clone https://${{ secrets.INFRA_OPENSHIFT }}@github.com/${{ env.INFRA_REPO }}.git infra_openshift
           cd infra_openshift
 
-          sed -i "s|image: .*frontend:.*|image: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.image-tag.outputs.tag }}|" k8s/frontend.yaml
-          sed -i "s|value: \".*\"|value: \"${{ steps.image-tag.outputs.tag }}\"|" k8s/frontend.yaml
+          sed -i "s|image: .*frontend:.*|image: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.image-tag.outputs.tag }}|" k8s/frontend.yml
+          sed -i "s|value: \".*\"|value: \"${{ steps.image-tag.outputs.tag }}\"|" k8s/frontend.yml
 
-          git add k8s/frontend.yaml
+          git add k8s/frontend.yml
           git commit -m "Update image to ${{ steps.image-tag.outputs.tag }}"
           git push origin main
