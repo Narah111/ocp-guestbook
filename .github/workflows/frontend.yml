@@ -6,10 +6,16 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+        - "frontend/**"
+        - ".github/workflows/frontend.yml"
   workflow_dispatch:
 env:
   REGISTRY: ghcr.io
   IMAGE_PREFIX: ghcr.io/narah111/ocp-guestbook/
+  IMAGE_REGISTRY: ghcr.io/narah111/ocp-guestbook
+  IMAGE_NAME: frontend
+  INFRA_REPO: narah111/infra_openshift
 
 jobs:
 
@@ -32,14 +38,37 @@ jobs:
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | podman login ghcr.io -u ${{ github.actor }} --password-stdin
 
+      - name: Generate image tag
+        id: image-tag
+        run: |
+            SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
+            IMAGE_TAG="1.0.${GITHUB_RUN_NUMBER}-${SHORT_SHA}"
+            echo "tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
+            echo "Generated tag: ${IMAGE_TAG}"
+
       - name: Build frontend image
         run: |
           cd frontend
-          podman build -t ${{ env.IMAGE_PREFIX }}frontend:latest -f Containerfile .
-          podman tag ${{ env.IMAGE_PREFIX }}frontend:latest ${{ env.IMAGE_PREFIX }}frontend:${{ github.sha }}
+          podman build -t ${{ env.IMAGE_PREFIX }}frontend -f Containerfile .
+          podman tag ${{ env.IMAGE_PREFIX }}frontend ${{ env.IMAGE_PREFIX }}frontend:${{ github.sha }}
 
       - name: Push frontend image
         if: github.event_name != 'pull_request'
         run: |
           podman push ${{ env.IMAGE_PREFIX }}frontend:latest
           podman push ${{ env.IMAGE_PREFIX }}frontend:${{ github.sha }}
+      
+      - name: Update Kubernetes manifests
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          git clone https://${{ secrets.INFRA_OPENSHIFT }}@github.com/${{ env.INFRA_REPO }}.git infra_openshift
+          cd infra_openshift
+
+          sed -i "s|image: .*frontend:.*|image: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.image-tag.outputs.tag }}|" k8s/frontend.yml
+          sed -i "s|value: \".*\"|value: \"${{ steps.image-tag.outputs.tag }}\"|" k8s/frontend.yml
+
+          git add k8s/frontend.yml
+          git commit -m "Update image to ${{ steps.image-tag.outputs.tag }}"
+          git push origin main
