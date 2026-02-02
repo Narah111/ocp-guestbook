@@ -51,8 +51,7 @@
 
     Efter en stund diskution, kom Jonas med förslaget att vi får rita på tavlan hela flödet från början till slut för att se hur vi tänker och hur kan vi undvika den långa vänte tiden. 
 
-![alt text](F15AC216-F7B2-4F7A-8118-078C41469845_1_105_c-1.jpeg)
-<img width="1470" height="956" alt="Screenshot 2026-01-30 at 13 42 55" src="https://github.com/user-attachments/assets/2114c35f-d95c-4c44-b608-11353ad0d71c" />
+![IMG_2979](https://github.com/user-attachments/assets/80745282-4de9-42a2-9cbe-03b76e182d31)
 
 
     Som bilden visar så har vi tänkt att vi ska ha en future branch (development) och bygga backend workflows att när det är push till dev ska den bygga bara arm64 och när det är PR till main ska den bygga amd64 för så att vi kan använda den i Openshift. Vi tror att med hjälp av den här fördelningen kan vi spara både tid och gör det mer specificerad. 
