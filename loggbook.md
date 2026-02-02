@@ -1,3 +1,5 @@
+# Rapport för Openshift - ArgoCD projekt
+
 ## 2026-01-15
     Idag har jag sutit och försökt att få igång alla de fya Containers som frontend, backend, Postgresql och Redis. Men det tog mig tid och jag klarade att bygga en container för Frontend och testade att bygga Backend i terminalen bara att för att se om jag får "healthy" för min postgresql och redis. 
 
@@ -95,5 +97,9 @@
     Idag fick jag hälpa Alma meg hennes projekt i tre timmar och klickade runt och föröskte lära mig lite.
 
 ## 2026-02-02
-    Uppdaterade loggboken med det som jag har gjort sen torsdags lektionen.
+    Jag skulle uppdatera loggboken idag och bara pusha den men efter att jag var klar och pushade till main så märkte jag att argoCD hittar inte image med amd64 version(samma problem som i torsdags). Jag visste direkt att det är min backend workflows som byggar imagen i fel version. Jag konaktade JonasF för att kolla om hur `workflow-dispatch` fungerar. Jag hade redan i min workflow dispatch men den funkade tydligen inte för att den byggde imagen med arm64.
+    Vi pratade genom discord. 
+    - Han rekomenderade att jag ska ha backend path on både push och pull request vilket jag inte hade.
+    - Vi fixade även Qemu setup så att den ska köra om workflows är på dispatch annars skipa(detta är bara för spara tid och inte automatisk)
+    - Vi har lagt även en if funktion för update kubernetes manifest så att så länge det inte är dispatch ska den körs automatisk. 
 
