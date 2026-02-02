@@ -16,7 +16,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// setupMockApp skapar en App med mockade beroenden 
+// setupMockApp skapar en App med mockade beroenden
 func setupMockApp(t *testing.T) (*App, sqlmock.Sqlmock, redismock.ClientMock) {
 	// Mock PostgreSQL med MonitorPingsOption aktiverat
 	db, mock, err := sqlmock.New(sqlmock.MonitorPingsOption(true))
