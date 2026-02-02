@@ -64,5 +64,35 @@
     Den 23de(fredag) och 26te(måndag) fick vi jobba med labben i RedHat som vi kan öva på den en hel del. 
 
 ## 2026-01-27
-    Lektion men jag tyvärr har missat det pga av sjukdom. 
+    Lektion idag, men jag tyvärr har missat det pga av sjukdom. 
+
+## 2026-01-28
+    Idag mår jag bättre och gick till skolan för att jobba själv och försöka komma ikapp. Jag sätte mig med JonasF och försökte skriva in de yml filer som Jonas läraren har gått genom för att kunna bygga de yml manifests.
+    
+    Eftersom Jonas läraren har gått genom det mesta dagen innan så alla filer var färdiga och vi har inte stött på något problem men det var ändå lärorik att klicka runt i openshift. Riktigt bra att tillfälle att vi fick möjlighet att lära känna miljön innan vi börjar bygga de manifest ihop med våran app. 
+
+## 2026-01-29
+    Jonas (läraren) har gått genom om hur kan man bygga de manifest i ett eget repo och bygga den i ArgoCD. Idag fick vi möjlighet att se hur app repo och och infra repo kommunicerar och vad är det som viktigt att tänka på när man bygga de manifest.
+
+    Jag har skapat en .gitignore fil där jag har specificerad att alla secrets och configmap filer ska inte pushas för hålla repot så säkert som möjligt.
+
+    Jag har lyckats att bygga infra repot och bygga upp yml manifest. Men sen fick jag ett problem som tog mig resten av dagen att felsöka och ännu längre.
+    Problemet var att min workflows byggde images och ArgoCD hitta en ny images tag men det var tom eller lättare sagt det image tagen var tom.
+
+## 2026-01-30 
+    JonasF har blivit sjuk och jag fick själv sitta och felsöka. Jag började med att gå genom mina workflows för att se hur det byggar images och det får de nya tags. 
+    
+    Jag kunde inte hitta se och jag började googla och fråga cloude AI men jag AI var gav mig information där jag kände att det här kan inte stämma. Jag vågade inte göra var AI säger så jag vände mig till JonasF och kollade om han orkar felsöka med mig. 
+
+    Efter en bra stund kunde jag lösa probleme med hjälp av JonasF.
+    Problemet var att jag först skapat en image tag med och nästa step när det byggde images och push där had hade jag inte specificerad att när imagen byggs ska den innehålla den nya tagen.
+    Det är för att i sista steps "update Kubernetes manifest" säger jag till det repot att hämta imagen som har den specifika tag och sha koden `steps.image-tag.outputs.tag`.
+
+    Nu fick jag rätt image både för frontend och backend. Jag har testad appen i webläsaren och jag allt funkar som det ska. 
+
+## 2026-01-31
+    Idag fick jag hälpa Alma meg hennes projekt i tre timmar och klickade runt och föröskte lära mig lite.
+
+## 2026-02-02
+    Uppdaterade loggboken med det som jag har gjort sen torsdags lektionen.
 
