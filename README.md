@@ -133,15 +133,15 @@ kommunicera med Redis!
 
 ## Checklist
 
-- [ ] Alla 6 pods körs (2x backend, 2x frontend, 1x postgres, 1x redis)
-- [ ] ConfigMaps och Secrets används korrekt
-- [ ] Backend kan ansluta till både PostgreSQL och Redis
-- [ ] Frontend kan kommunicera med backend via service
-- [ ] Route exponerar applikationen externt
-- [ ] Cache fungerar (verifiera X-Cache header med `curl -i`)
-- [ ] Health checks fungerar
-- [ ] Persistent storage används för PostgreSQL
-- [ ] Kan skapa och läsa inlägg via webbgränssnittet (frontend applikationen)
+- [x] Alla 6 pods körs (2x backend, 2x frontend, 1x postgres, 1x redis)
+- [x] ConfigMaps och Secrets används korrekt
+- [x] Backend kan ansluta till både PostgreSQL och Redis
+- [x] Frontend kan kommunicera med backend via service
+- [x] Route exponerar applikationen externt
+- [x] Cache fungerar (verifiera X-Cache header med `curl -i`)
+- [x] Health checks fungerar
+- [x] Persistent storage används för PostgreSQL
+- [x] Kan skapa och läsa inlägg via webbgränssnittet (frontend applikationen)
 
 ## Reflektionsfrågor
 
