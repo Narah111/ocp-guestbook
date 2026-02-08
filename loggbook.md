@@ -102,4 +102,7 @@
     - Han rekomenderade att jag ska ha backend path on både push och pull request vilket jag inte hade.
     - Vi fixade även Qemu setup så att den ska köra om workflows är på dispatch annars skipa(detta är bara för spara tid och inte automatisk)
     - Vi har lagt även en if funktion för update kubernetes manifest så att så länge det inte är dispatch ska den körs automatisk. 
+## 2026-02-08 
+
+    Jag har tänkt lite på att hur skulle min workflows kan bli bättre. Jag skulle kunna ha mer tests för att koden ska vara i säker sidan innan den pushas samt linting skulle vara bra för att se att all syntax och de regler som jag önksar passar med koden innan den pushas till produktion.
 
