@@ -1,6 +1,6 @@
 # OpenShift: Distribuerad Gästbok med cache
 
-I denna labb ska ni bygga och deploya en modern, cloud-native applikation på OpenShift. Applikationen är en gästbok som demonstrerar:
+I denna labb ska jag bygga och deploya en modern, cloud-native applikation på OpenShift. Applikationen är en gästbok som demonstrerar:
 
 - Multi-tier arkitektur
 - Containerisering med multi-stage builds
@@ -35,7 +35,7 @@ w
 
 ## Backend
 
-För att bygga backend behöver ni kunna bygga Golang:
+För att bygga backend behöver man kunna bygga Golang:
 
 ```sh
 $ go mod tidy
@@ -85,7 +85,7 @@ $ curl localhost:8080/health
 $ curl localhost:8080/api/entries
 ```
 
-- Skapa ett nytt inlägg. `name` är namnet på den som skrivit inlägget och `message` är inlägget. I exemplet nedanför skriver Jonas meddelandet *Jonas testar API!*
+- Skapa ett nytt inlägg. `name` är namnet på den som skrivit inlägget och `message` är inlägget. I exemplet nedanför skriver Jonas meddelandet *Nasir testar API!*
 
 ```sh
 $ curl -X POST localhost:8080/api/entries \
